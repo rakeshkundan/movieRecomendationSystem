@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 class AppTitle extends StatelessWidget {
   final String titleText;
   final IconData titleIcon;
-  const AppTitle({
+  final VoidCallback onIconPress;
+  void fun() {}
+
+  AppTitle({
     super.key,
     this.titleText = 'Title',
     this.titleIcon = Icons.rectangle_outlined,
-  });
+    VoidCallback? onIconPress,
+  }) : onIconPress = onIconPress ?? (() {});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +28,13 @@ class AppTitle extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          Icon(
-            titleIcon,
-            size: 25.0,
+          GestureDetector(
+            onTap: onIconPress,
+            child: Icon(
+              titleIcon,
+              size: 25.0,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
