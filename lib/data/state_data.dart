@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
+import 'package:movie/screen/loading_screen.dart';
 import 'package:movie/utilities/bottom_tile_info.dart';
 import 'package:movie/screen/home_screen.dart';
 import 'package:movie/screen/circle_screen.dart';
@@ -10,6 +11,20 @@ import 'package:movie/screen/profile_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class StateData extends ChangeNotifier {
+  Map<String, bool> profileEdit = {
+    'Name': false,
+    'About': false,
+    'Phone': false,
+  };
+  void setEdit(String key) {
+    profileEdit[key] = !profileEdit[key]!;
+    notifyListeners();
+  }
+
+  bool getEdit(String key) {
+    return profileEdit[key]!;
+  }
+
   int reviewCount = 0;
   void reviewCountUpdate(int x) {
     reviewCount = x;
@@ -40,7 +55,7 @@ class StateData extends ChangeNotifier {
       tileTitle: 'Messages',
       icon: FontAwesomeIcons.message,
       isActive: false,
-      id: MessageScreen.id,
+      id: LoadingScreen.id,
     ),
     BottomTileInfo(
       tileTitle: 'Profile',

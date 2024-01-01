@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:movie/constants.dart';
 import 'package:movie/utilities/category_list.dart';
 import 'package:provider/provider.dart';
-import '../widgets/app_title.dart';
+import '../data/app_title.dart';
 import '../widgets/search_bar.dart';
 import '../widgets/category_bar.dart';
 import '../widgets/movie_bar.dart';

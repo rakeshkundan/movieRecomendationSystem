@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:movie/widgets/app_title.dart';
+import 'package:movie/data/app_title.dart';
 import 'package:movie/widgets/bottom_nav_bar.dart';
 import 'package:movie/widgets/search_bar.dart';
 
