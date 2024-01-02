@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             titleTextStyle: TextStyle(color: Colors.white),
           ),
         ),
-        initialRoute: HomeScreen.id,
+        initialRoute: Home.id,
         routes: {
           Home.id: (context) => Home(),
           HomeScreen.id: (context) => HomeScreen(),
@@ -59,10 +59,7 @@ class MyApp extends StatelessWidget {
           LibraryScreen.id: (context) => LibraryScreen(),
           MessageScreen.id: (context) => MessageScreen(),
           ChatScreen.id: (context) => ChatScreen(),
-          ProfileScreen.id: (context) =>
-              Provider.of<ProfileData>(context).isProfileSet
-                  ? ProfileScreen()
-                  : LoginScreen(),
+          ProfileScreen.id: (context) => ProfileScreen(),
           ProfileDetailScreen.id: (context) => ProfileDetailScreen(),
           MovieDetailScreen.id: (context) => MovieDetailScreen(),
           SearchResult.id: (context) => SearchResult(),

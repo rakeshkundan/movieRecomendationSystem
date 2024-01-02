@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_declarations, unused_field
+// ignore_for_file: prefer_const_declarations, unused_field, avoid_print
 
 import 'package:movie/models/contact.dart';
 import 'package:movie/models/user.dart';

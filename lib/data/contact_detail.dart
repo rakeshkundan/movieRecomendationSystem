@@ -8,7 +8,8 @@ class ContactDetail extends ChangeNotifier {
   void getData() async {
     DatabaseHelper dbHelp = DatabaseHelper.instance;
     contactList = await dbHelp.querryAllContact();
-    print(contactList);
+    notifyListeners();
+    // print(contactList);
   }
 
   ContactDetail() {

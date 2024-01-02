@@ -1,9 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:movie/data/app_title.dart';
+import 'package:movie/components/app_title.dart';
+import 'package:movie/data/contact_detail.dart';
+import 'package:movie/models/database.dart';
 import 'package:movie/screen/chat_screen.dart';
-import 'package:movie/widgets/bottom_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 class MessageScreen extends StatelessWidget {
   static String id = 'message_screen';
@@ -12,44 +14,30 @@ class MessageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var arguments = (ModalRoute.of(context)?.settings.arguments ??
-        <String, dynamic>{}) as Map;
-
-    // print(arguments['data']);
-    return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                AppTitle(
-                  titleText: 'Messages',
-                  titleIcon: Icons.mail_outline,
-                ),
-                Expanded(
-                    child: ListView.builder(
-                  itemCount: arguments['data'].length,
-                  itemBuilder: (context, index) {
-                    var data = arguments['data'][index];
-                    return ContactTile(
-                      name: data['cname'],
-                      lastMessage: data['lmessage'],
-                      unreadCount: data['unreadCount'],
-                      number: data['cnum'],
-                    );
-                  },
-                )),
-              ],
+    return SafeArea(
+      bottom: false,
+      child: Column(
+        children: [
+          AppTitle(
+            titleText: 'Messages',
+            titleIcon: Icons.mail_outline,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: Provider.of<ContactDetail>(context).contactList.length,
+              itemBuilder: (context, index) {
+                var data =
+                    Provider.of<ContactDetail>(context).contactList[index];
+                return ContactTile(
+                  name: data['cname'],
+                  lastMessage: data['lmessage'],
+                  unreadCount: data['unreadCount'],
+                  number: data['cnum'],
+                );
+              },
             ),
-            Positioned(
-              bottom: 25.0,
-              left: 0.0,
-              right: 0.0,
-              child: BottomNavBar(),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
