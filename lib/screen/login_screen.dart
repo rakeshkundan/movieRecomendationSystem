@@ -8,7 +8,6 @@ import 'package:movie/data/profile_data.dart';
 import 'package:movie/models/database.dart';
 import 'package:movie/models/user.dart';
 import 'package:movie/screen/profile_screen.dart';
-import 'package:movie/widgets/bottom_nav_bar.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
