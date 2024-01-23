@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:movie/constants.dart';
@@ -7,8 +5,8 @@ import 'package:movie/services/networking.dart';
 
 class MovieDetailScreen extends StatelessWidget {
   static String id = 'movie_detail';
-  dynamic movieData;
-  MovieDetailScreen({super.key});
+
+  const MovieDetailScreen({super.key});
 
   List<RatingStar> setRating({double ratingInScaleOf10 = 10.0}) {
     List<RatingStar> newList = [];
@@ -16,13 +14,13 @@ class MovieDetailScreen extends StatelessWidget {
     for (int i = 0; i < 5; i++) {
       if (i < rate) {
         newList.add(
-          RatingStar(
+          const RatingStar(
             color: kIconColor,
           ),
         );
       } else {
         newList.add(
-          RatingStar(
+          const RatingStar(
             color: Colors.white,
           ),
         );
@@ -33,17 +31,17 @@ class MovieDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
+    // double height = MediaQuery.of(context).size.height;
+    // double width = MediaQuery.of(context).size.width;
 
-    movieData = ModalRoute.of(context)!.settings.arguments as Map;
+    dynamic movieData = ModalRoute.of(context)!.settings.arguments as Map;
     movieData = movieData['data'];
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
         backgroundColor: Colors.transparent,
-        actions: [
+        actions: const [
           Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: Icon(
@@ -53,226 +51,234 @@ class MovieDetailScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(40.0),
-                        bottomLeft: Radius.circular(40.0),
+      body: InteractiveViewer(
+        // panEnabled: false,
+        minScale: 0.2,
+        maxScale: 4,
+        child: SafeArea(
+          top: false,
+          bottom: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Stack(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      clipBehavior: Clip.antiAlias,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(40.0),
+                          bottomLeft: Radius.circular(40.0),
+                        ),
+                      ),
+                      child: Image(
+                        fit: BoxFit.fitWidth,
+                        image: NetworkImage(
+                          'https://image.tmdb.org/t/p/w500${movieData['backdrop_path'] ?? '/hOx2kPyniEHJj9wquzJMuStFFUG.jpg'}',
+                        ),
                       ),
                     ),
-                    child: Image(
-                      fit: BoxFit.fitWidth,
-                      image: NetworkImage(
-                        'https://image.tmdb.org/t/p/w500${movieData['backdrop_path'] ?? '/hOx2kPyniEHJj9wquzJMuStFFUG.jpg'}',
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Container(
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: Image(
-                              height: 170.0,
-                              width: 100.0,
-                              image: NetworkImage(
-                                  'https://image.tmdb.org/t/p/w500${movieData['poster_path'] ?? '/tvp7vaLbiUD76P3DTiUe4iz8up9.jpg'}'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 5.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(right: 10.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(
-                                          width: 180,
-                                          child: Text(
-                                            '${movieData['title']}',
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                        ),
-                                        Container(
-                                          color: Colors.white,
-                                          child: Icon(
-                                            Icons.discord,
-                                            color: Colors.indigo,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Text(
-                                    'Release Date:${movieData['release_date']}',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(color: kInactiveTextColor),
-                                  ),
-                                  Row(
-                                    children: setRating(
-                                      ratingInScaleOf10:
-                                          movieData['vote_average'] ?? 10.0,
-                                    ),
-                                  ),
-                                ],
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 15.0, vertical: 0.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: Image(
+                                height: 170.0,
+                                width: 100.0,
+                                image: NetworkImage(
+                                    'https://image.tmdb.org/t/p/w500${movieData['poster_path'] ?? '/tvp7vaLbiUD76P3DTiUe4iz8up9.jpg'}'),
+                                fit: BoxFit.cover,
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      margin:
+                                          const EdgeInsets.only(right: 10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          SizedBox(
+                                            width: 180,
+                                            child: Text(
+                                              '${movieData['title']}',
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                          ),
+                                          Container(
+                                            color: Colors.white,
+                                            child: const Icon(
+                                              Icons.discord,
+                                              color: Colors.indigo,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Text(
+                                      'Release Date:${movieData['release_date']}',
+                                      textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                          color: kInactiveTextColor),
+                                    ),
+                                    Row(
+                                      children: setRating(
+                                        ratingInScaleOf10:
+                                            movieData['vote_average'] ?? 10.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                '${movieData['overview']}',
-                maxLines: 6,
-                style: TextStyle(color: Color(0xFF88878B), letterSpacing: -.5),
-                overflow: TextOverflow.ellipsis,
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                  '${movieData['overview']}',
+                  maxLines: 6,
+                  style: const TextStyle(
+                      color: Color(0xFF88878B), letterSpacing: -.5),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
-            ),
-            Row(
-              children: [
-                RowIcon(
-                  iconData: Icons.bookmark_add_outlined,
-                  onPress: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Padding(
-                            padding: EdgeInsets.all(20),
-                            child: SimpleDialog(
-                              children: [
-                                ////////This is still to be designed
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    'operation 1',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    'operation 1',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-                                SimpleDialogOption(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    'operation 1',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                ),
-
-                                RawMaterialButton(
-                                  highlightColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  // splashColor: Colors.transparent,
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text(
-                                    'Cancel',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                )
-                                ////////This is still to be designed
-                              ],
-                            ),
-                          );
-                        });
-                  },
-                ),
-                RowIcon(
-                  iconData: Icons.favorite_border_outlined,
-                  onPress: () {},
-                ),
-                RowIcon(
-                  iconData: Icons.remove_red_eye_outlined,
-                  onPress: () {},
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20.0, right: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              Row(
                 children: [
-                  Text(
-                    'Reviews',
-                    style:
-                        TextStyle(fontSize: 17.0, fontWeight: FontWeight.bold),
+                  RowIcon(
+                    iconData: Icons.bookmark_add_outlined,
+                    onPress: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: SimpleDialog(
+                                children: [
+                                  ////////This is still to be designed
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      'operation 1',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      'operation 1',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  SimpleDialogOption(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      'operation 1',
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+
+                                  RawMaterialButton(
+                                    highlightColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    // splashColor: Colors.transparent,
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text(
+                                      'Cancel',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  )
+                                  ////////This is still to be designed
+                                ],
+                              ),
+                            );
+                          });
+                    },
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'See all',
-                      style: TextStyle(color: kIconColor, fontSize: 15.0),
-                    ),
-                  )
+                  RowIcon(
+                    iconData: Icons.favorite_border_outlined,
+                    onPress: () {},
+                  ),
+                  RowIcon(
+                    iconData: Icons.remove_red_eye_outlined,
+                    onPress: () {},
+                  ),
                 ],
               ),
-            ),
-            Reviews(
-              reviews: NetworkHelper(
-                url:
-                    'https://api.themoviedb.org/3/movie/${movieData['id']}/reviews?api_key=b195f787962173c1ee91ddc986379adc',
+              Padding(
+                padding: const EdgeInsets.only(left: 20.0, right: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Reviews',
+                      style: TextStyle(
+                          fontSize: 17.0, fontWeight: FontWeight.bold),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'See all',
+                        style: TextStyle(color: kIconColor, fontSize: 15.0),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+              Reviews(
+                reviews: NetworkHelper(
+                  url:
+                      'https://api.themoviedb.org/3/movie/${movieData['id']}/reviews?api_key=b195f787962173c1ee91ddc986379adc',
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -295,13 +301,13 @@ class _ReviewsState extends State<Reviews> {
     for (int i = 0; i < 5; i++) {
       if (i < rate) {
         newList.add(
-          RatingStar(
+          const RatingStar(
             color: kIconColor,
           ),
         );
       } else {
         newList.add(
-          RatingStar(
+          const RatingStar(
             color: Colors.white,
           ),
         );
@@ -329,14 +335,14 @@ class _ReviewsState extends State<Reviews> {
 
               if (data["total_results"] > 0) {
                 return ListView.builder(
-                  padding: EdgeInsets.only(top: 0),
+                  padding: const EdgeInsets.only(top: 0),
                   itemBuilder: (context, index) {
                     return Container(
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                      decoration: BoxDecoration(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 10),
+                      decoration: const BoxDecoration(
                         color: Color(0xFF2B2B2B),
                         borderRadius: BorderRadius.all(
                           Radius.circular(10),
@@ -356,7 +362,7 @@ class _ReviewsState extends State<Reviews> {
                                   : 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg',
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Expanded(
@@ -378,7 +384,7 @@ class _ReviewsState extends State<Reviews> {
                                     ),
                                   ],
                                 ),
-                                Text(
+                                const Text(
                                   '20 Dec 2023',
                                   style: TextStyle(
                                       color: kInactiveTextColor, fontSize: 12),
@@ -386,7 +392,7 @@ class _ReviewsState extends State<Reviews> {
                                 Text(
                                   '${data['results'][index]['content']}',
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 10.0,
                                 ),
                                 Row(
@@ -396,16 +402,16 @@ class _ReviewsState extends State<Reviews> {
                                     Row(
                                       children: [
                                         Container(
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20)),
                                           ),
-                                          padding: EdgeInsets.all(5),
-                                          margin: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.all(5),
+                                          margin: const EdgeInsets.symmetric(
                                             horizontal: 3.5,
                                           ),
-                                          child: Text(
+                                          child: const Text(
                                             '😊109',
                                             style: TextStyle(
                                               color: Colors.black,
@@ -414,16 +420,16 @@ class _ReviewsState extends State<Reviews> {
                                           ),
                                         ),
                                         Container(
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(15)),
                                           ),
-                                          margin: EdgeInsets.symmetric(
+                                          margin: const EdgeInsets.symmetric(
                                             horizontal: 3.5,
                                           ),
-                                          padding: EdgeInsets.all(5),
-                                          child: Center(
+                                          padding: const EdgeInsets.all(5),
+                                          child: const Center(
                                             child: Text(
                                               '👍',
                                               style: TextStyle(
@@ -434,16 +440,16 @@ class _ReviewsState extends State<Reviews> {
                                           ),
                                         ),
                                         Container(
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20)),
                                           ),
-                                          margin: EdgeInsets.symmetric(
+                                          margin: const EdgeInsets.symmetric(
                                             horizontal: 3.5,
                                           ),
-                                          padding: EdgeInsets.all(5),
-                                          child: Text(
+                                          padding: const EdgeInsets.all(5),
+                                          child: const Text(
                                             '😂109',
                                             style: TextStyle(
                                               color: Colors.black,
@@ -452,17 +458,17 @@ class _ReviewsState extends State<Reviews> {
                                           ),
                                         ),
                                         Container(
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Colors.white,
                                             borderRadius: BorderRadius.all(
                                               Radius.circular(20),
                                             ),
                                           ),
-                                          margin: EdgeInsets.symmetric(
+                                          margin: const EdgeInsets.symmetric(
                                             horizontal: 3.5,
                                           ),
-                                          padding: EdgeInsets.all(5),
-                                          child: Text(
+                                          padding: const EdgeInsets.all(5),
+                                          child: const Text(
                                             '❤️109',
                                             style: TextStyle(
                                               color: Colors.black,
@@ -473,16 +479,16 @@ class _ReviewsState extends State<Reviews> {
                                       ],
                                     ),
                                     Container(
-                                      decoration: BoxDecoration(
+                                      decoration: const BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(20)),
                                       ),
-                                      margin: EdgeInsets.symmetric(
+                                      margin: const EdgeInsets.symmetric(
                                         horizontal: 3.5,
                                       ),
-                                      padding: EdgeInsets.all(5),
-                                      child: Row(
+                                      padding: const EdgeInsets.all(5),
+                                      child: const Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
@@ -513,12 +519,12 @@ class _ReviewsState extends State<Reviews> {
                   itemCount: data["total_results"],
                 );
               } else {
-                return Text('No reviews');
+                return const Text('No reviews');
               }
             } else if (snapShot.hasError) {
-              return Text('Network Problem!');
+              return const Text('Network Problem!');
             }
-            return SpinKitRing(
+            return const SpinKitRing(
               color: kIconColor,
             );
           },
@@ -1322,10 +1328,10 @@ class RowIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      constraints: BoxConstraints(minHeight: 0, minWidth: 0),
+      constraints: const BoxConstraints(minHeight: 0, minWidth: 0),
       onPressed: onPress,
       child: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         child: Icon(
           iconData,
           size: 30.0,

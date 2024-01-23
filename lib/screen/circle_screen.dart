@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, unused_local_variable, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:movie/components/movies_row.dart';
@@ -14,8 +12,8 @@ import 'package:provider/provider.dart';
 
 class CircleScreen extends StatelessWidget {
   static String id = 'circle_screen';
-  TextEditingController name = TextEditingController();
-  TextEditingController num = TextEditingController();
+  final TextEditingController name = TextEditingController();
+  final TextEditingController num = TextEditingController();
   CircleScreen({super.key});
 
   @override
@@ -43,30 +41,32 @@ class CircleScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         "Add Contact",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 30),
                       ),
                       TextField(
                         controller: name,
-                        decoration: InputDecoration(hintText: 'Enter name'),
+                        decoration:
+                            const InputDecoration(hintText: 'Enter name'),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       TextField(
                         controller: num,
-                        decoration: InputDecoration(hintText: 'Enter Number'),
+                        decoration:
+                            const InputDecoration(hintText: 'Enter Number'),
                         textAlign: TextAlign.center,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       RawMaterialButton(
                         onPressed: () async {
-                          print(login);
+                          // print(login);
                           if (!login) {
                             showDialog(
                               context: context,
@@ -99,11 +99,12 @@ class CircleScreen extends StatelessWidget {
                               // print(name.text);
 
                               DatabaseHelper dbHelp = DatabaseHelper.instance;
+                              // ignore: unused_local_variable
                               final id = await dbHelp.insertContact(
                                   Contact(name.text, num.text, '', 0, ''));
                               // print(id);
                             } catch (e) {
-                              print(e);
+                              // print(e);
                             }
                             if (!context.mounted) return;
                             Navigator.pop(context);
@@ -116,7 +117,7 @@ class CircleScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(7),
                             color: kInactiveTextColor,
                           ),
-                          child: Center(
+                          child: const Center(
                             child: Text('Add',
                                 textAlign: TextAlign.center,
                                 style: kAlertButtonTextStyle),
@@ -129,11 +130,11 @@ class CircleScreen extends StatelessWidget {
               );
             },
           ),
-          Searchbar(
+          const Searchbar(
             hintText: 'Search for Friends by Name',
           ),
           Padding(
-            padding: EdgeInsets.only(left: 15.0),
+            padding: const EdgeInsets.only(left: 15.0),
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -145,7 +146,7 @@ class CircleScreen extends StatelessWidget {
                       clipBehavior: Clip.none,
                       fit: StackFit.expand,
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           backgroundColor: kIconColor,
                           child: CircleAvatar(
                             radius: 33,
@@ -157,7 +158,7 @@ class CircleScreen extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 13,
                             backgroundColor: kDefaultIconDarkColor,
-                            child: Center(
+                            child: const Center(
                               child: Icon(
                                 Icons.add_circle_outline_outlined,
                                 color: kIconColor,
@@ -169,40 +170,40 @@ class CircleScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 5.0,
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: CircleAvatar(
                       radius: 30,
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: CircleAvatar(
                       radius: 30,
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: CircleAvatar(
                       radius: 30,
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: CircleAvatar(
                       radius: 30,
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: CircleAvatar(
                       radius: 30,
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: CircleAvatar(
                       radius: 30,
@@ -212,14 +213,14 @@ class CircleScreen extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Expanded(
             child: ListView(
-              padding: EdgeInsets.only(bottom: 120),
+              padding: const EdgeInsets.only(bottom: 120),
               scrollDirection: Axis.vertical,
-              children: [
+              children: const [
                 FriendBar(),
                 FriendBar(),
                 FriendBar(),
@@ -241,14 +242,14 @@ class FriendBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
-          padding: EdgeInsets.only(left: 10, top: 10),
+          padding: const EdgeInsets.only(left: 10, top: 10),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 23,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Expanded(
@@ -258,7 +259,7 @@ class FriendBar extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Rakesh kundan',
                           style: TextStyle(
                             fontSize: 18,
@@ -266,7 +267,7 @@ class FriendBar extends StatelessWidget {
                             letterSpacing: -1,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         TextButton(
@@ -276,7 +277,7 @@ class FriendBar extends StatelessWidget {
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
                           onPressed: () {},
-                          child: Text(
+                          child: const Text(
                             'Unfollow',
                             style: TextStyle(
                               color: kInactiveTextColor,
@@ -286,7 +287,7 @@ class FriendBar extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Text(
+                    const Text(
                       '@rakeshkundan',
                       style: TextStyle(
                         fontSize: 15,
@@ -304,18 +305,18 @@ class FriendBar extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                child: Text(
+                child: const Text(
                   'See all',
                   style: TextStyle(color: kIconColor),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         MoviesRow(

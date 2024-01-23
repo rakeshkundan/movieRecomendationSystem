@@ -11,7 +11,7 @@ class CategoryList extends ChangeNotifier {
     Category(text: 'Latest Releases', searchId: 'now_playing'),
     Category(text: 'Coming Soon', searchId: 'upcoming'),
     Category(text: 'Popular', searchId: 'popular'),
-    Category(text: 'Top rated', searchId: 'top_rated'),
+    Category(text: 'Top Rated', searchId: 'top_rated'),
   ];
   List<Widget> activeList = [
     MovieBar(
@@ -31,9 +31,6 @@ class CategoryList extends ChangeNotifier {
       searchId: 'top_rated',
     ),
   ];
-  void refreshActiveList() {
-    notifyListeners();
-  }
 
   String get title => category[active].text;
   String get searchId => category[active].searchId;
@@ -48,41 +45,14 @@ class CategoryList extends ChangeNotifier {
     for (var item in category) {
       item.isSeeAll = false;
     }
-
     active = index;
-    if (active == 0) {
-      activeList = [
-        MovieBar(
-          cardTitle: "Latest Releases",
-          searchId: 'now_playing',
-        ),
-        MovieBar(
-          cardTitle: "Coming Soon",
-          searchId: 'upcoming',
-        ),
-        MovieBar(
-          cardTitle: "Popular",
-          searchId: 'popular',
-        ),
-        MovieBar(
-          cardTitle: "Top Rated",
-          searchId: 'top_rated',
-        ),
-      ];
-    } else {
-      category[active].isSeeAll = true;
-      activeList = [
-        MovieBar(
-          cardTitle: category[active].text,
-          searchId: category[active].searchId,
-        ),
-      ];
-    }
+    category[active].isSeeAll = true;
     notifyListeners();
   }
 
   int get categoryCount => category.length;
   void setSeeAll(String text) {
+    // print(text);
     for (var item in category) {
       if (item.text == text) {
         item.isSeeAll = !item.isSeeAll;

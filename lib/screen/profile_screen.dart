@@ -1,239 +1,187 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import, must_be_immutable, unused_local_variable
-
+import 'package:attendance/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:movie/constants.dart';
-import 'package:movie/data/profile_data.dart';
-import 'package:movie/data/state_data.dart';
-import 'package:movie/models/database.dart';
-import 'package:movie/models/user.dart';
-import 'package:movie/screen/profile_detail_screen.dart';
-import 'package:movie/components/app_title.dart';
-import 'package:movie/widgets/bottom_nav_bar.dart';
+import 'package:attendance/Data/profile_data.dart';
+import 'package:attendance/models/database.dart';
+import 'package:attendance/screen/profile_detail_screen.dart';
+import 'package:attendance/Utilities/session.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
+// ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
   static String id = 'profile_screen';
   ProfileScreen({super.key});
-  var data = '';
+  TextEditingController phone = TextEditingController();
+  TextEditingController password = TextEditingController();
   final dbHelper = DatabaseHelper.instance;
 
   @override
   Widget build(BuildContext context) {
-    return Provider.of<ProfileData>(context).profileSet
-        ? SafeArea(
-            bottom: false,
+    return SafeArea(
+      bottom: false,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, ProfileDetailScreen.id);
+            },
+            child: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              radius: 70,
+              child: Image.asset('assets/images/manit_logo.jpg'),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Center(
+            child: Text(
+              '${Provider.of<ProfileData>(context).name}',
+              style: TextStyle(
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey.shade700),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+            ),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.all(0),
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, ProfileDetailScreen.id);
+            },
+            child: const Text(
+              'View Profile',
+              style: TextStyle(
+                color: kInactiveTextColor,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                AppTitle(
-                  titleText: 'Profile',
-                  titleIcon: Icons.person,
-                  onIconPress: () {
-                    Navigator.pushNamed(context, ProfileDetailScreen.id);
-                  },
+                RowItem(
+                  icon: Icons.electric_bolt_outlined,
+                  text: 'What\'s new',
+                  onPress: () {},
                 ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 15,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, ProfileDetailScreen.id);
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: kInactiveTextColor,
-                        radius: 40,
-                        child: Text(
-                          Provider.of<ProfileData>(context).name![0],
-                          style: TextStyle(
-                            fontSize: 40,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${Provider.of<ProfileData>(context).name}',
-                            style: TextStyle(
-                                fontSize: 25.0, fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.all(0),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, ProfileDetailScreen.id);
-                            },
-                            child: Text(
-                              'View Profile',
-                              style: TextStyle(color: kIconColor),
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                RowItem(
+                  icon: Icons.history_sharp,
+                  text: 'History',
+                  onPress: () {},
                 ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      RowItem(
-                        icon: Icons.electric_bolt_outlined,
-                        text: 'What\'s new',
-                        onPress: () {},
-                      ),
-                      RowItem(
-                        icon: Icons.history_sharp,
-                        text: 'Listening history',
-                        onPress: () {},
-                      ),
-                      RowItem(
-                        icon: Icons.settings_outlined,
-                        text: 'Settings and privacy',
-                        onPress: () {},
-                      ),
-                      RowItem(
-                        icon: Icons.logout,
-                        text: 'Logout',
-                        onPress: () async {
-                          DatabaseHelper dbHelp = DatabaseHelper.instance;
-                          bool flag = await dbHelp.deleteDb();
-                          // var id = await dbHelp.deleteUser(
-                          //     Provider.of<ProfileData>(context, listen: false).profile['Phone']!);
-                          if (flag) {
-                            if (!context.mounted) return;
-                            Provider.of<ProfileData>(context, listen: false)
-                                .setIsProfileSet(false);
-                          } else {
-                            if (!context.mounted) return;
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Text('Error!!'),
-                                    content: Text(
-                                        'Some Unexpected Error.Please restart the app.'),
-                                    actions: [
-                                      RawMaterialButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text('ok'),
-                                      ),
-                                    ],
+                RowItem(
+                  icon: Icons.settings_outlined,
+                  text: 'Settings',
+                  onPress: () {},
+                ),
+                RowItem(
+                  icon: Icons.logout,
+                  text: 'Logout',
+                  onPress: () {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text('Confirm!'),
+                            content:
+                                const Text('Are you sure wants to logout?'),
+                            actions: [
+                              RawMaterialButton(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    // color: kInactiveTextColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 7.0),
+                                  child: Text(
+                                    'Cancel',
+                                    style: kAlertButtonTextStyle,
+                                  ),
+                                ),
+                              ),
+                              RawMaterialButton(
+                                highlightColor: Colors.transparent,
+                                splashColor: Colors.transparent,
+                                onPressed: () async {
+                                  DatabaseHelper dbHelp =
+                                      DatabaseHelper.instance;
+                                  bool flag = await dbHelp.deleteDb();
+                                  http.Response response = await http.get(
+                                    Uri.parse(
+                                      "http://localhost:3000/logout",
+                                    ),
                                   );
-                                });
-                          }
-                        },
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          )
-        : SafeArea(
-            bottom: false,
-            child: Column(
-              children: [
-                AppTitle(
-                  titleText: 'Authentication',
-                  titleIcon: Icons.login,
-                ),
-                TextField(
-                  onChanged: (value) {
-                    data = value;
-                  },
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                  // textAlign: TextAlign.center,
-                  decoration: InputDecoration(
-                    icon: Text(
-                      '+91',
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: kIconColor,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        width: 2,
-                        color: kIconColor,
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                RawMaterialButton(
-                  onPressed: () async {
-                    try {
-                      if (kDebugMode) {
-                        // print(data);
-                      }
-                      Map<String, dynamic> row = {
-                        DatabaseHelper.phone: data,
-                        DatabaseHelper.about: 'online',
-                        DatabaseHelper.name: 'User 101',
-                      };
+                                  if (response.statusCode == 200) {
+                                    if (!context.mounted) return;
+                                    Provider.of<Session>(context, listen: false)
+                                        .updateCookie(response);
+                                  }
 
-                      User user = User.fromMap(row);
-                      final id = await dbHelper.insertUser(user);
-                      if (!context.mounted) return;
-                      await Provider.of<ProfileData>(context, listen: false)
-                          .setIsProfileSet(true);
-                    } catch (e) {
-                      // print(e);
-                    }
+                                  if (flag) {
+                                    if (!context.mounted) return;
+                                    Provider.of<ProfileData>(context,
+                                            listen: false)
+                                        .setIsProfileSet(false);
+                                    Navigator.pop(context);
+                                  } else {
+                                    if (!context.mounted) return;
+                                    Navigator.pop(context);
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text('Error!!'),
+                                            content: const Text(
+                                                'Some Unexpected Error.Please restart the app.'),
+                                            actions: [
+                                              RawMaterialButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: Text('ok'),
+                                              ),
+                                            ],
+                                          );
+                                        });
+                                  }
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    // color: kInactiveTextColor,
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 7.0),
+                                  child: Text(
+                                    'Ok',
+                                    style: kAlertButtonTextStyle,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        });
                   },
-                  child: Container(
-                    width: 120,
-                    height: 40,
-                    color: kInactiveTextColor,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Submit',
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w700),
-                        ),
-                        Icon(Icons.login_outlined)
-                      ],
-                    ),
-                  ),
-                ),
+                )
               ],
             ),
-          );
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -254,7 +202,7 @@ class RowItem extends StatelessWidget {
       splashColor: Colors.transparent,
       onPressed: onPress,
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 10,
           vertical: 10,
         ),
@@ -263,13 +211,15 @@ class RowItem extends StatelessWidget {
             Icon(
               icon,
               size: 35,
+              color: Colors.grey.shade700,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10.0,
             ),
             Text(
               text,
               style: TextStyle(
+                color: Colors.grey.shade700,
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),

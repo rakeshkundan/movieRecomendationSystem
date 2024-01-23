@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:movie/components/app_title.dart';
 import 'package:movie/data/contact_detail.dart';
@@ -61,13 +59,13 @@ class ContactTile extends StatelessWidget {
         Navigator.pushNamed(context, ChatScreen.id);
       },
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 27,
             ),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Expanded(
@@ -77,7 +75,7 @@ class ContactTile extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -87,7 +85,7 @@ class ContactTile extends StatelessWidget {
                     children: [
                       Text(
                         lastMessage,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Color(0xff39c4a6),
                         ),
                       ),
@@ -97,10 +95,10 @@ class ContactTile extends StatelessWidget {
                               backgroundColor: Colors.red,
                               child: Text(
                                 '$unreadCount',
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                     ],
                   ),
                 ],

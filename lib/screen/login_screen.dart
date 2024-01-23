@@ -51,6 +51,51 @@ class LoginScreen extends StatelessWidget {
             },
             keyboardType: TextInputType.phone,
             style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+            // textAlign: TextAlign.center,
+            decoration: InputDecoration(
+              hintText: "Enter your phone",
+              icon: Text(
+                '+91',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 2,
+                  color: kIconColor,
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  width: 2,
+                  color: kIconColor,
+                ),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(10),
+                ),
+              ),
+            ),
+          ),
+          TextField(
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(
+                '[0 - 9]',
+              )),
+            ],
+            onChanged: (value) {
+              data = value;
+            },
+            keyboardType: TextInputType.text,
+            style: TextStyle(
                 fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
             // textAlign: TextAlign.center,
             decoration: InputDecoration(

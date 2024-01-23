@@ -1,14 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
-
 import 'package:flutter/material.dart';
 import 'package:movie/constants.dart';
 import 'package:movie/screen/circle_screen.dart';
 import 'package:movie/screen/home_screen.dart';
 import 'package:movie/screen/library_screen.dart';
-import 'package:movie/screen/loading_screen.dart';
 import 'package:movie/screen/message_screen.dart';
 import 'package:movie/screen/profile_screen.dart';
-import 'package:movie/widgets/bottom_nav_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Home extends StatefulWidget {
@@ -32,10 +28,10 @@ class _HomeState extends State<Home> {
             children: [
               TabBarView(
                 children: [
-                  HomeScreen(),
+                  const HomeScreen(),
                   CircleScreen(),
-                  LibraryScreen(),
-                  MessageScreen(),
+                  const LibraryScreen(),
+                  const MessageScreen(),
                   ProfileScreen(),
                 ],
               ),
@@ -45,14 +41,15 @@ class _HomeState extends State<Home> {
                 right: 0.0,
                 child: Container(
                   width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 15),
-                  padding: EdgeInsets.only(left: 29.0, top: 0.0, right: 29.0),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  padding:
+                      const EdgeInsets.only(left: 29.0, top: 0.0, right: 29.0),
                   height: 75.0,
                   decoration: BoxDecoration(
-                    color: Color(0xFF2B2B2B),
+                    color: const Color(0xFF2B2B2B),
                     borderRadius: BorderRadius.circular(40.0),
                   ),
-                  child: TabBar(
+                  child: const TabBar(
                     indicator: BoxDecoration(
                       border: Border(
                         top: BorderSide(

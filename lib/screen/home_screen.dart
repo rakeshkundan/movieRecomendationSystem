@@ -1,7 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, unused_import
-
 import 'package:flutter/material.dart';
-import 'package:movie/constants.dart';
 import 'package:movie/screen/home.dart';
 import 'package:movie/utilities/category_list.dart';
 import 'package:provider/provider.dart';
@@ -9,7 +6,6 @@ import '../components/app_title.dart';
 import '../widgets/search_bar.dart';
 import '../widgets/category_bar.dart';
 import '../widgets/movie_bar.dart';
-import '../widgets/bottom_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   static String id = "home_screen";
@@ -21,19 +17,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Widget> list = [
-    MovieBar(
+    const MovieBar(
       cardTitle: "Latest Releases",
       searchId: 'now_playing',
     ),
-    MovieBar(
+    const MovieBar(
       cardTitle: "Coming Soon",
       searchId: 'upcoming',
     ),
-    MovieBar(
+    const MovieBar(
       cardTitle: "Popular",
       searchId: 'popular',
     ),
-    MovieBar(
+    const MovieBar(
       cardTitle: "Top Rated",
       searchId: 'top_rated',
     ),
@@ -49,41 +45,108 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      bottom: false,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          AppTitle(
-            titleText: 'Browse',
-            titleIcon: Icons.notifications_none_outlined,
-          ),
-          Searchbar(
-            hintText: 'Search by Name,Genre or Award',
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          CategoryBar(
-            updateList: updateCategory,
-          ),
-          SizedBox(
-            height: 10.0,
-          ),
-          Expanded(
-            flex: 7,
-            child: RefreshIndicator(
-              onRefresh: () async {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, Home.id);
-              },
-              child: ListView(
-                padding: EdgeInsets.only(bottom: 110.0),
-                children: Provider.of<CategoryList>(context).activeList,
+    return DefaultTabController(
+      length: Provider.of<CategoryList>(context).categoryCount,
+      initialIndex: Provider.of<CategoryList>(context).active,
+      child: SafeArea(
+        bottom: false,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            AppTitle(
+              titleText: 'Browse',
+              titleIcon: Icons.notifications_none_outlined,
+            ),
+            const Searchbar(
+              hintText: 'Search by Name,Genre or Award',
+            ),
+            const SizedBox(
+              height: 5.0,
+            ),
+            CategoryBar(
+              updateList: updateCategory,
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            Expanded(
+              flex: 7,
+              child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  RefreshIndicator(
+                    onRefresh: () async {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, Home.id);
+                    },
+                    child: ListView(
+                      padding: const EdgeInsets.only(bottom: 110.0),
+                      children: Provider.of<CategoryList>(context).activeList,
+                    ),
+                  ),
+                  RefreshIndicator(
+                    onRefresh: () async {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, Home.id);
+                    },
+                    child: ListView(
+                      padding: const EdgeInsets.only(bottom: 110.0),
+                      children: [
+                        Provider.of<CategoryList>(context).activeList[0]
+                      ],
+                    ),
+                  ),
+                  RefreshIndicator(
+                    onRefresh: () async {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, Home.id);
+                    },
+                    child: ListView(
+                        padding: const EdgeInsets.only(bottom: 110.0),
+                        children: [
+                          Provider.of<CategoryList>(context).activeList[1]
+                        ]),
+                  ),
+                  RefreshIndicator(
+                    onRefresh: () async {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, Home.id);
+                    },
+                    child: ListView(
+                        padding: const EdgeInsets.only(bottom: 110.0),
+                        children: [
+                          Provider.of<CategoryList>(context).activeList[2]
+                        ]),
+                  ),
+                  RefreshIndicator(
+                    onRefresh: () async {
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, Home.id);
+                    },
+                    child: ListView(
+                        padding: const EdgeInsets.only(bottom: 110.0),
+                        children: [
+                          Provider.of<CategoryList>(context).activeList[3]
+                        ]),
+                  ),
+                ],
               ),
             ),
-          ),
-        ],
+            // Expanded(
+            //   flex: 7,
+            //   child: RefreshIndicator(
+            //     onRefresh: () async {
+            //       Navigator.pop(context);
+            //       Navigator.pushNamed(context, Home.id);
+            //     },
+            //     child: ListView(
+            //       padding: EdgeInsets.only(bottom: 110.0),
+            //       children: Provider.of<CategoryList>(context).activeList,
+            //     ),
+            //   ),
+            // ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:movie/components/app_title.dart';
 import 'package:movie/constants.dart';
@@ -23,11 +21,22 @@ class LibraryScreen extends StatelessWidget {
                 context: context,
                 builder: (context) {
                   return AlertDialog(
-                    title: Text(
+                    backgroundColor: const Color(0xFF1A1A1A),
+                    title: const Text(
                       'Add new Library',
                       textAlign: TextAlign.center,
                     ),
-                    content: TextField(
+                    content: const TextField(
+                      cursorColor: Colors.white,
+                      style: TextStyle(color: Colors.white),
+                      decoration: InputDecoration(
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                        ),
+                        fillColor: Colors.white,
+                        focusColor: Colors.white,
+                        hintText: 'Create New Library',
+                      ),
                       minLines: 1,
                       maxLines: 2,
                       maxLength: 20,
@@ -46,9 +55,9 @@ class LibraryScreen extends StatelessWidget {
                             color: kInactiveTextColor,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 7.0),
-                          child: Text(
+                          child: const Text(
                             'Cancel',
                             style: kAlertButtonTextStyle,
                           ),
@@ -59,13 +68,13 @@ class LibraryScreen extends StatelessWidget {
                         splashColor: Colors.transparent,
                         onPressed: () {},
                         child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 20.0, vertical: 7.0),
                           decoration: BoxDecoration(
                             color: kInactiveTextColor,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Add',
                             style: kAlertButtonTextStyle,
                           ),
@@ -77,10 +86,10 @@ class LibraryScreen extends StatelessWidget {
               );
             },
           ),
-          Searchbar(
+          const Searchbar(
             hintText: 'Search for movie',
           ),
-          Text('This page is Empty')
+          const Text('This page is Empty')
         ],
       ),
     );

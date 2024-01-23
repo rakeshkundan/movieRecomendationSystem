@@ -1,16 +1,16 @@
 // ignore_for_file: prefer_const_declarations, unused_field, avoid_print
 
-import 'package:movie/models/contact.dart';
-import 'package:movie/models/user.dart';
+import 'package:attendance/models/contact.dart';
+import 'package:attendance/models/user.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseHelper {
-  static final _databaseName = 'Movie.db';
+  static final _databaseName = 'Attendance.db';
   static final _databaseVersion = 1;
   static final userTable = 'User';
   static final name = 'name';
-  static final about = 'about';
+  static final about = 'department';
   static final phone = 'phone';
   static final email = 'email';
   static final contactTable = 'Contacts';
@@ -54,7 +54,7 @@ class DatabaseHelper {
     )
     ''');
   }
-
+  //
   Future<int> insertContact(Contact contact) async {
     Database db = await instance.database;
     return await db.insert(contactTable, contact.toMap());

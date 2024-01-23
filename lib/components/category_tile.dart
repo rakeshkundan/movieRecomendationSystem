@@ -16,6 +16,7 @@ class CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 35,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: isActive
@@ -26,6 +27,7 @@ class CategoryTile extends StatelessWidget {
       ),
       child: TextButton(
         style: TextButton.styleFrom(
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
           minimumSize: Size(0, 0),
         ),
         onPressed: onPress,

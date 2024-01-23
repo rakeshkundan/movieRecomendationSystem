@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_local_variable, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:movie/components/movies_row.dart';
 import 'package:movie/constants.dart';
@@ -19,13 +17,14 @@ class MovieBar extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          margin: EdgeInsets.only(left: 20.0, top: 10.0),
+          margin: const EdgeInsets.only(left: 20.0, top: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 cardTitle,
-                style: TextStyle(fontSize: 23.0, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                    fontSize: 23.0, fontWeight: FontWeight.w700),
               ),
               TextButton(
                 onPressed: () {
@@ -35,7 +34,7 @@ class MovieBar extends StatelessWidget {
                 },
                 child: Text(
                   'See ${(Provider.of<CategoryList>(context).isSeeAll(cardTitle) == false) ? 'all' : 'less'}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: kIconColor,
                     fontSize: 15.0,
                   ),

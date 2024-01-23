@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:movie/components/movie_tile.dart';
@@ -84,6 +82,7 @@ class _MoviesRowState extends State<MoviesRow> {
             return !(Provider.of<CategoryList>(context)
                     .isSeeAll(widget.catTitle))
                 ? SingleChildScrollView(
+                    padding: const EdgeInsets.only(left: 10),
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,16 +106,16 @@ class _MoviesRowState extends State<MoviesRow> {
             //             ),
             // );
           } else if (snapShot.hasError) {
-            return Text('Network Problem!');
+            return const Text('Network Problem!');
           }
 
-          return SpinKitRing(
+          return const SpinKitRing(
             color: kIconColor,
           );
         },
       );
     } catch (e) {
-      return Center(
+      return const Center(
         child: Text("Network Problem"),
       );
     }
