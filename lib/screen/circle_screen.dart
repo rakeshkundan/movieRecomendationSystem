@@ -39,7 +39,6 @@ class CircleScreen extends StatelessWidget {
                     bottom: MediaQuery.of(context).viewInsets.bottom + 50,
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       const Text(
                         "Add Contact",
@@ -61,10 +60,14 @@ class CircleScreen extends StatelessWidget {
                             const InputDecoration(hintText: 'Enter Number'),
                         textAlign: TextAlign.center,
                       ),
+<<<<<<< HEAD
                       const SizedBox(
                         height: 10,
                       ),
                       RawMaterialButton(
+=======
+                      TextButton(
+>>>>>>> parent of 27dbbe5 (added Dialog in library)
                         onPressed: () async {
                           // print(login);
                           if (!login) {
@@ -110,6 +113,7 @@ class CircleScreen extends StatelessWidget {
                             Navigator.pop(context);
                           }
                         },
+<<<<<<< HEAD
                         child: Container(
                           height: 40,
                           width: double.infinity,
@@ -121,6 +125,13 @@ class CircleScreen extends StatelessWidget {
                             child: Text('Add',
                                 textAlign: TextAlign.center,
                                 style: kAlertButtonTextStyle),
+=======
+                        child: Text(
+                          'Add',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+>>>>>>> parent of 27dbbe5 (added Dialog in library)
                           ),
                         ),
                       ),

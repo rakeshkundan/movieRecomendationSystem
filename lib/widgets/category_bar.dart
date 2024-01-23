@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+>>>>>>> parent of 27dbbe5 (added Dialog in library)
 import 'package:flutter/material.dart';
 import 'package:movie/constants.dart';
 import 'package:movie/utilities/category.dart';

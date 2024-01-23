@@ -172,7 +172,28 @@ class MovieDetailScreen extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
+<<<<<<< HEAD
               Row(
+=======
+            ),
+            Row(
+              children: [
+                RowIcon(
+                  iconData: Icons.bookmark_add_outlined,
+                ),
+                RowIcon(
+                  iconData: Icons.favorite_border_outlined,
+                ),
+                RowIcon(
+                  iconData: Icons.remove_red_eye_outlined,
+                ),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 20.0, right: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+>>>>>>> parent of 27dbbe5 (added Dialog in library)
                 children: [
                   RowIcon(
                     iconData: Icons.bookmark_add_outlined,
@@ -1319,17 +1340,62 @@ class RatingStar extends StatelessWidget {
 
 class RowIcon extends StatelessWidget {
   final IconData iconData;
-  final VoidCallback onPress;
-  const RowIcon(
-      {super.key,
-      required this.onPress,
-      this.iconData = Icons.favorite_border});
+  const RowIcon({super.key, this.iconData = Icons.favorite_border});
 
   @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
+<<<<<<< HEAD
       constraints: const BoxConstraints(minHeight: 0, minWidth: 0),
       onPressed: onPress,
+=======
+      constraints: BoxConstraints(minHeight: 0, minWidth: 0),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return Padding(
+                padding: EdgeInsets.all(20),
+                child: SimpleDialog(
+                  children: [
+                    ////////This is still to be designed
+                    SimpleDialogOption(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'operation 1',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    SimpleDialogOption(
+                      child: Text('operation 2'),
+                    ),
+                    SimpleDialogOption(
+                      child: Text('operation 2'),
+                    ),
+                    RawMaterialButton(
+                      highlightColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      // splashColor: Colors.transparent,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
+                    ////////This is still to be designed
+                  ],
+                ),
+              );
+            });
+      },
+>>>>>>> parent of 27dbbe5 (added Dialog in library)
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Icon(

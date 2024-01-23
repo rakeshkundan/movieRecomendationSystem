@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movie/components/app_title.dart';
 import 'package:movie/data/contact_detail.dart';
+import 'package:movie/models/database.dart';
 import 'package:movie/screen/chat_screen.dart';
 import 'package:provider/provider.dart';
 

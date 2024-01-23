@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import 'package:attendance/constants.dart';
+=======
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, unused_import
+
+>>>>>>> parent of 27dbbe5 (added Dialog in library)
 import 'package:flutter/material.dart';
 import 'package:attendance/Data/profile_data.dart';
 import 'package:attendance/models/database.dart';

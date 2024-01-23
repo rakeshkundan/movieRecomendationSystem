@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:movie/components/app_title.dart';
-import 'package:movie/constants.dart';
 import 'package:movie/widgets/search_bar.dart';
 
 class LibraryScreen extends StatelessWidget {
@@ -16,6 +15,7 @@ class LibraryScreen extends StatelessWidget {
           AppTitle(
             titleText: 'Library',
             titleIcon: Icons.add,
+<<<<<<< HEAD
             onIconPress: () {
               showDialog(
                 context: context,
@@ -85,6 +85,8 @@ class LibraryScreen extends StatelessWidget {
                 },
               );
             },
+=======
+>>>>>>> parent of 27dbbe5 (added Dialog in library)
           ),
           const Searchbar(
             hintText: 'Search for movie',
